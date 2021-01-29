@@ -1,5 +1,6 @@
 import { message } from "antd";
 import Axios from "axios";
+import { storageHelper } from "../util/storageHelper";
 
 /**
  *
@@ -10,6 +11,8 @@ import Axios from "axios";
  * @param {object=} param.data
  */
 export function callApi({ method = "get", url, params, data }) {
+  var token = storageHelper.get("token");
+  console.log(token);
   return Axios({
     url,
     method,
@@ -18,16 +21,18 @@ export function callApi({ method = "get", url, params, data }) {
     withCredentials: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
+      token: token,
     },
   }).then((response) => {
     const { isSuccess, resultCode, resultMessage } = response.data;
     console.log(response);
     if (!isSuccess) {
+      console.log("오류");
       message.error(resultMessage);
     }
     return {
       isSuccess: isSuccess,
-      data: response.data.data,
+      data: response.data,
       resultCode,
       resultMessage,
     };

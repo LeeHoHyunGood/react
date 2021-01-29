@@ -9,7 +9,6 @@ export const Types = {
   SetValue: "auth/SetValue",
   FetchLogin: "auth/FetchLogin",
   SetMember: "auth/SetMember",
-  FetchMember: "auth/FetchMember",
 };
 
 export const actions = {
@@ -24,9 +23,6 @@ export const actions = {
     type: Types.SetMember,
     memberId,
     roleGroup,
-  }),
-  fetchMember: () => ({
-    type: Types.FetchMember,
   }),
 };
 

@@ -10,4 +10,5 @@ export const RoleGroup = {
   ROLE_LOGIN: "ROLE_LOGIN",
   USER_MGR: "USER_MGR",
   USER_DEV: "USER_DEV",
+  USER_INFRA: "USER_INFRA",
 };
