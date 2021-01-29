@@ -4,8 +4,8 @@ import Signup from "./member/insert/container/Signup";
 import "antd/dist/antd.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "./member/login/state";
+import { useSelector } from "react-redux";
+import MemberUpdate from "./member/update/container/MemberUpdate";
 
 export default function App() {
   useEffect(() => {
@@ -16,10 +16,6 @@ export default function App() {
 
   const roleGroup = useSelector((state) => state.login.roleGroup);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(actions.fetchMember());
-  }, [dispatch]);
   return (
     <>
       <BrowserRouter>
@@ -27,6 +23,11 @@ export default function App() {
           <Route role={roleGroup} component={Home} exact path="/" />
           <Route role={roleGroup} component={Login} path="/login" />
           <Route role={roleGroup} component={Signup} path="/signup" />
+          <Route
+            role={roleGroup}
+            component={MemberUpdate}
+            path="/memberUpdate"
+          />
         </Switch>
       </BrowserRouter>
     </>

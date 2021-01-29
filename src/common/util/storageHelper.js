@@ -1,23 +1,25 @@
 export const storageHelper = {
   set: (key, object) => {
-    if (!localStorage) return;
-    localStorage[key] =
-      typeof object === "string" ? object : JSON.stringify(object);
+    if (!window.sessionStorage) return;
+    window.sessionStorage.setItem(
+      key,
+      typeof object === "string" ? object : JSON.stringify(object)
+    );
   },
   get: (key) => {
-    if (!localStorage) return null;
-    if (!localStorage[key]) return null;
+    if (!window.sessionStorage) return null;
+    if (!window.sessionStorage.getItem(key)) return null;
     try {
-      const parsed = JSON.parse(localStorage[key]);
+      const parsed = JSON.parse(window.sessionStorage.getItem(key));
       return parsed;
     } catch (e) {
-      return localStorage[key];
+      return window.sessionStorage.getItem(key);
     }
   },
   remove: (key) => {
-    if (!localStorage) return null;
-    if (localStorage[key]) {
-      localStorage.removeItem(key);
+    if (!window.sessionStorage) return null;
+    if (window.sessionStorage.getItem(key)) {
+      window.sessionStorage.removeItem(key);
     }
   },
 };

@@ -6,8 +6,9 @@ import { RoleGroup } from "../constant";
 export default function useNeedLogin() {
   const history = useHistory();
   const roleGroup = useSelector((state) => state.login.roleGroup);
+  console.log(roleGroup);
   useEffect(() => {
-    if (roleGroup === RoleGroup.ROLE_ANONYMOUS) {
+    if (roleGroup === undefined || roleGroup === RoleGroup.ROLE_ANONYMOUS) {
       history.replace("/login");
     }
   }, [roleGroup, history]);

@@ -7,7 +7,7 @@ export default function useBlockLoginMember() {
   const history = useHistory();
   const roleGroup = useSelector((state) => state.login.roleGroup);
   useEffect(() => {
-    if (roleGroup === RoleGroup.ROLE_LOGIN) {
+    if (roleGroup !== undefined && roleGroup !== RoleGroup.ROLE_ANONYMOUS) {
       history.replace("/");
     }
   }, [roleGroup, history]);

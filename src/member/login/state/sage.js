@@ -3,6 +3,7 @@ import { callApi } from "../../../common/util/Api";
 import { actions, Types } from "./index";
 import { makeFetchSage } from "../../../common/util/fetch";
 import { RoleGroup } from "../../../common/constant";
+import { storageHelper } from "../../../common/util/storageHelper";
 
 function* fatchLogin({ memberId, pwd, history }) {
   let form = new FormData();
@@ -14,22 +15,13 @@ function* fatchLogin({ memberId, pwd, history }) {
     data: form,
   });
   if (isSuccess && data) {
-    yield put(actions.setMember(data.memberId, data.roleGroup));
+    yield put(
+      actions.setMember(data.item.member.memberId, data.item.member.roleGroup)
+    );
     if (data.roleGroup !== RoleGroup.ROLE_ANONYMOUS) {
+      storageHelper.set("token", data.item.token);
       history.replace("/");
     }
-  }
-}
-
-function* fetchMember() {
-  const { resultCode, data } = yield call(callApi, {
-    url: "/common/member",
-  });
-
-  if (resultCode === 0 && data) {
-    yield put(actions.setMember(data.memberId, data.roleGroup));
-  } else {
-    yield put(actions.setMember("", RoleGroup.ROLE_ANONYMOUS));
   }
 }
 
@@ -38,10 +30,6 @@ export default function* sage() {
     takeLeading(
       Types.FetchLogin,
       makeFetchSage({ fetchSage: fatchLogin, canCache: false })
-    ),
-    takeLeading(
-      Types.FetchMember,
-      makeFetchSage({ fetchSage: fetchMember, canCache: false })
     ),
   ]);
 }
