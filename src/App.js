@@ -5,7 +5,8 @@ import "antd/dist/antd.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import { useSelector } from "react-redux";
-import MemberUpdate from "./member/update/container/MemberUpdate";
+import Memberlist from "./member/update/container/Memberlist";
+import MemberDetail from "./member/update/container/MemberDetail";
 
 export default function App() {
   useEffect(() => {
@@ -23,10 +24,11 @@ export default function App() {
           <Route role={roleGroup} component={Home} exact path="/" />
           <Route role={roleGroup} component={Login} path="/login" />
           <Route role={roleGroup} component={Signup} path="/signup" />
+          <Route role={roleGroup} component={Memberlist} path="/memberlist" />
           <Route
             role={roleGroup}
-            component={MemberUpdate}
-            path="/memberUpdate"
+            component={MemberDetail}
+            path="/memberDetail"
           />
         </Switch>
       </BrowserRouter>

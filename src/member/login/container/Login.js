@@ -2,16 +2,18 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { actions } from "../state";
+import { loginActions } from "../state";
 import { Link } from "react-router-dom";
 import AuthLayout from "../../insert/component/AuthLayout";
 import useBlockLoginMember from "../../../common/hook/useBlockLoginMember";
+import { useHistory } from "react-router-dom";
 
-export default function Login({ history }) {
+export default function Login() {
   useBlockLoginMember();
   const dispatch = useDispatch();
+  const history = useHistory();
   function onFinish({ memberId, pwd }) {
-    dispatch(actions.fetchLogin(memberId, pwd, history));
+    dispatch(loginActions.fetchLogin(memberId, pwd, history));
   }
   return (
     <AuthLayout onFinish={onFinish}>

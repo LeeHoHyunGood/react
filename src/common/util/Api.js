@@ -12,7 +12,6 @@ import { storageHelper } from "../util/storageHelper";
  */
 export function callApi({ method = "get", url, params, data }) {
   var token = storageHelper.get("token");
-  console.log(token);
   return Axios({
     url,
     method,
@@ -28,6 +27,7 @@ export function callApi({ method = "get", url, params, data }) {
     console.log(response);
     if (!isSuccess) {
       console.log("오류");
+      if (resultCode === "R400") storageHelper.set("token", "");
       message.error(resultMessage);
     }
     return {

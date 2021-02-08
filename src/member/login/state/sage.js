@@ -1,6 +1,6 @@
 import { all, call, put, takeLeading } from "redux-saga/effects";
 import { callApi } from "../../../common/util/Api";
-import { actions, Types } from "./index";
+import { loginActions, Types } from "./index";
 import { makeFetchSage } from "../../../common/util/fetch";
 import { RoleGroup } from "../../../common/constant";
 import { storageHelper } from "../../../common/util/storageHelper";
@@ -16,7 +16,10 @@ function* fatchLogin({ memberId, pwd, history }) {
   });
   if (isSuccess && data) {
     yield put(
-      actions.setMember(data.item.member.memberId, data.item.member.roleGroup)
+      loginActions.setMember(
+        data.item.member.memberId,
+        data.item.member.roleGroup
+      )
     );
     if (data.roleGroup !== RoleGroup.ROLE_ANONYMOUS) {
       storageHelper.set("token", data.item.token);

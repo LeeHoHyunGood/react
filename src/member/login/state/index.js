@@ -11,7 +11,7 @@ export const Types = {
   SetMember: "auth/SetMember",
 };
 
-export const actions = {
+export const loginActions = {
   setValue: createSetValueAction(Types.SetValue),
   fetchLogin: (memberId, pwd, history) => ({
     type: Types.FetchLogin,
